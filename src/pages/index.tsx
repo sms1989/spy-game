@@ -82,12 +82,31 @@ export default function IndexPage() {
     navigate("/game")
   }
 
+  const handleChange = (min: number, max?: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.value) {
+      return "";
+    }
+    const value = +event.target.value;
+
+    if (isNaN(value)) {
+      return "";
+    }
+
+    if (value < min) {
+      return min.toString();
+    }
+    if (max && value > max) {
+      return max.toString();
+    }
+    return event.target.value;
+  }
+
   return (
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 w-full">
         <h1 className="text-4xl font-bold text-center">بازی جاسوس</h1>
-        <Input type="number" value={players} min="2" onChange={({ target }) => setPlayers(+target.value > 3 ? target.value : "3")} label="تعداد بازیکنان" placeholder="تعداد بازیکنان" />
-        <Input type="number" value={spies} min="1" max={+players - 1} onChange={({ target }) => setSpies(+target.value < +players - 1 ? +target.value > 0 ? target.value : "1" : (+players - 1).toString())} label="تعداد جاسوس" placeholder="تعداد جاسوس" />
+        <Input type="number" value={players} min="2" onChange={(event) => setPlayers(handleChange(3)(event))} label="تعداد بازیکنان" placeholder="تعداد بازیکنان" />
+        <Input type="number" value={spies} min="1" max={+players - 1} onChange={(event) => setSpies(handleChange(1, +players - 1)(event))} label="تعداد جاسوس" placeholder="تعداد جاسوس" />
         <Select label="دسته بندی" selectedKeys={[category]} onChange={(event) => {
           setCategory(event.target.value as Category);
         }}>
