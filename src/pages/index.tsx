@@ -54,7 +54,7 @@ export default function IndexPage() {
   const navigate = useNavigate();
   const [players, setPlayers] = useState(data.players.toString());
   const [hasHint, setHasHint] = useState(data.hasHint);
-  const [spies, setSpies] = useState(data.spiesLocation.length.toString());
+  const [spies, setSpies] = useState((data.spiesLocation.length || 1).toString());
   const [timer, setTimer] = useState(data.timer.toString());
   const [category, setCategory] = useState<Category>((data.category || "all") as Category);
 
