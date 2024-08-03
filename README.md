@@ -1,50 +1,33 @@
-# Vite & NextUI Template
+# بازی جاسوس
 
-This is a template for creating applications using Vite and NextUI (v2).
+این نرم افزار در حال حاضر روی آدرس [اینجا](https://spygame.darkube.app) قابل دسترسی است.
+در حال اجراست
 
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/vite-template)
+## توضیحات
 
-## Technologies Used
+من این بازی رو با استفاده از vitejs و reactjs نوشتم. و برای دیتابیس لغات از چت جی پی تی کمک گرفتم و در فایل `words.json` ذخیره کردم.
 
-- [Vite](https://vitejs.dev/guide/)
-- [NextUI](https://nextui.org)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org)
-- [Framer Motion](https://www.framer.com/motion)
+## نحوه اجرا
 
-## How to Use
-
-To clone the project, run the following command:
+برای اجرای این بازی ابتدا باید وارد فولدر `spy-game` شوید و سپس دستورات زیر را اجرا کنید:
 
 ```bash
-git clone https://github.com/nextui-org/vite-template.git
+pnpm install
+pnpm run dev
 ```
 
-### Install dependencies
+سپس وارد آدرس `http://localhost:5173` شوید.
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+## توضیحات بازی
 
-```bash
-npm install
-```
+در این بازی نرم افزار یک کلمه رو انتخاب می‌کنه و به همه بازیکنان به جز جاسوسان نشون میده و به جاسوس در صورتی که تنظیمات برای راهنمایی باشه تنها یه راهنمایی می کنه ... جاسوس‌ها می‌توانند بیش از یک نفر باشند
 
-### Run the development server
+### هدف بازی
 
-```bash
-npm run dev
-```
+هدف اصلی بازی اینه که جاسوس‌ها هویت خودشون رو مخفی نگه دارن و بقیه بازیکنان بفهمند کدوم یکی از بازیکنان جاسوسه. همچنین جاسوس باید بتونه با استفاده از سوالاتی که افراد از هم می‌کنن تشخیص بده که کلمه چی بوده
 
-### Setup pnpm (optional)
+دقت کنید که سوالات افراد از هم دیگه به صورت دو گزینه‌ای است این یا اون
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+## کمک به توسعه
 
-```bash
-public-hoist-pattern[]=*@nextui-org/*
-```
-
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
-
-## License
-
-Licensed under the [MIT license](https://github.com/nextui-org/vite-template/blob/main/LICENSE).
+اگر مایل به کمک به توسعه این بازی هستید می‌تونید از طریق fork کردن این مخزن و ارسال پول ریکوئست به من کمک کنید. همچنین اگر مایل به اضافه کردن لغات جدید به دیتابیس هستید می‌تونید از طریق ارسال پول ریکوئست به من کمک کنید.
