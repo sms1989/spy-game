@@ -1,7 +1,7 @@
 import { Data } from "@/data";
 import Store, { StoreMode } from "@/helpers/store";
 import DefaultLayout from "@/layouts/default";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardBody, CardFooter } from '@nextui-org/card'
 import { Button } from "@nextui-org/button";
 import { Link } from "react-router-dom";
