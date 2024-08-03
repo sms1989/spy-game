@@ -39,7 +39,7 @@ const times = [
 export const initData = {
   players: "8",
   spiesLocation: [],
-  timer: "3",
+  timer: "5",
   word: {
     word: "",
     hint: []
