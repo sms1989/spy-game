@@ -15,6 +15,7 @@ export default defineConfig({
       registerType: "autoUpdate",
       manifest: {
         name: "جاسوس",
+        short_name: "جاسوس",
         icons: [
           {
             src: "pwa-64x64.png",
