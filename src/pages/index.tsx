@@ -27,7 +27,7 @@ const categories = [{
 }];
 
 const times = [
-  1, 5, 10, 15
+  3, 5, 10, 15
 ]
 
 // todo: use react hook form
@@ -37,7 +37,7 @@ export default function IndexPage() {
   const [players, setPlayers] = useState("8");
   const [hasHint, setHasHint] = useState(true);
   const [spies, setSpies] = useState("1");
-  const [timer, setTimer] = useState("1");
+  const [timer, setTimer] = useState("3");
   const [category, setCategory] = useState<string>("all");
 
 
