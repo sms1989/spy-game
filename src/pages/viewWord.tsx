@@ -1,16 +1,18 @@
 import { Data } from "@/data";
-import Store, { StoreMode } from "@/helpers/store";
+import Store from "@/helpers/store";
 import DefaultLayout from "@/layouts/default";
 import { Button } from "@nextui-org/button";
 import { Card, CardBody, CardFooter } from '@nextui-org/card';
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
-const store = new Store(StoreMode.LOCAL);
 export default function viewWordPage() {
+  if (!Store.local.data) {
+    return <Navigate to="/" />;
+  }
   const navigate = useNavigate();
-  const data = store.get<Data>("data", { currentPlayer: 0, expiredAt: new Date(), players: 0, spiesLocation: [], timer: 0, word: { hint: [], word: "" }, hasHint: true });
-  const { currentPlayer, players, spiesLocation, timer, word, hasHint } = data as Data;
+  const data = Store.local.data as Data;
+  const { currentPlayer, players, spiesLocation, timer, word, hasHint } = data;
   const [state, setState] = useState<"show" | "next">("next");
 
   const handleNext = () => {
@@ -19,16 +21,16 @@ export default function viewWordPage() {
     }
     setState("next");
     if (currentPlayer < players - 1) {
-      store.set("data", {
+      Store.local.data = {
         ...data,
         currentPlayer: currentPlayer + 1,
-      });
+      }
     } else {
-      store.set("data", {
+      Store.local.data = {
         ...data,
         expiredAt: new Date(Date.now() + timer * 60 * 1000),
         currentPlayer: currentPlayer + 1,
-      });
+      }
       navigate("/game/play")
     }
   }
@@ -38,9 +40,8 @@ export default function viewWordPage() {
       return <p className="text-xl w-full text-center text-green-700 font-bold">گوشی را به نفر اول بدهید</p>
     }
     if (state === "next") {
-      return <CardBody>
-        <p className="text-xl w-full text-center text-red-500 font-bold">گوشی را به نفر بعدی بدهید</p>
-      </CardBody>
+      return <p className="text-xl w-full text-center text-red-500 font-bold">گوشی را به نفر بعدی بدهید</p>
+
     }
     if (spiesLocation.includes(currentPlayer)) {
       const hint = word.hint.sort(() => Math.random() - 0.5)[0];
@@ -54,14 +55,14 @@ export default function viewWordPage() {
 
   return (
     <DefaultLayout>
-      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 w-full">
         <Card>
-          <CardBody className="min-h-20 p-10 items-center">
+          <CardBody className="min-h-20 p-10 items-center w-[80vw]">
             {renderContent()}
           </CardBody>
           <CardFooter className="justify-center">
             <Button onClick={handleNext}>
-              {(currentPlayer === 0 && state === "next") ? "شروع" : currentPlayer === players - 1 ? "شروع بازی" : "بعدی"}
+              {(currentPlayer === 0 && state === "next") ? "شروع" : ((currentPlayer === players - 1) && state === "next") ? "شروع بازی" : "بعدی"}
             </Button>
           </CardFooter>
         </Card>

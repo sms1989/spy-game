@@ -21,7 +21,9 @@ if (!window.storage) {
 }
 
 export default class Store {
-  constructor(private mode: StoreMode) {}
+  constructor(private mode: StoreMode) {
+    return new Proxy(this, this.proxyHandler());
+  }
 
   static init() {
     window.tabID = Math.random().toString(36).substring(2);
@@ -48,6 +50,21 @@ export default class Store {
       }
     });
   }
+
+  static get local() {
+    return new Store(StoreMode.LOCAL);
+  }
+
+  static get session() {
+    return new Store(StoreMode.SESSION);
+  }
+
+  static get temp() {
+    return new Store(StoreMode.TEMP);
+  }
+
+  // Add an index signature to allow dynamic property access
+  [key: string]: any;
 
   set(key: string, value: unknown) {
     const str = JSON.stringify(value);
@@ -124,5 +141,27 @@ export default class Store {
       case StoreMode.TEMP:
         return window.storage;
     }
+  }
+
+  private proxyHandler() {
+    return {
+      get: (target: Store, property: string) => {
+        // Intercept property access
+        if (property in target) {
+          return (target as any)[property];
+        }
+        return target.get(property);
+      },
+      set: (target: Store, property: string, value: unknown) => {
+        // Intercept property assignment
+        target.set(property, value);
+        return true;
+      },
+      deleteProperty: (target: Store, property: string) => {
+        // Intercept property deletion
+        target.remove(property);
+        return true;
+      },
+    };
   }
 }

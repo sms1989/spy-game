@@ -1,17 +1,21 @@
 import { Route, Routes, Navigate } from "react-router-dom";
+import { Suspense, lazy } from "react";
 
-import IndexPage from "@/pages/index";
-import GamePage from "@/pages/viewWord";
-import PlayPage from "@/pages/timer";
+const IndexPage = lazy(() => import("@/pages/index"));
+const GamePage = lazy(() => import("@/pages/viewWord"));
+const PlayPage = lazy(() => import("@/pages/timer"));
+import LoadingPage from "./components/LoadingPage";
 
 function App() {
   return (
-    <Routes>
-      <Route element={<IndexPage />} path="/" />
-      <Route element={<GamePage />} path="/game" />
-      <Route element={<PlayPage />} path="/game/play" />
-      <Route element={<Navigate to="/" />} path="*" />
-    </Routes>
+    <Suspense fallback={<LoadingPage />}>
+      <Routes>
+        <Route element={<IndexPage />} path="/" />
+        <Route element={<GamePage />} path="/game" />
+        <Route element={<PlayPage />} path="/game/play" />
+        <Route element={<Navigate to="/" />} path="*" />
+      </Routes>
+    </Suspense>
   );
 }
 

@@ -5,6 +5,6 @@ export const siteConfig = {
   description: "بازی جاسوس",
   links: {
     github: "https://github.com/sms1989/spy-game",
-    sponsor: "https://www.coffeete.ir/shobeiri",
+    sponsor: "https://www.coffeebede.com/shobeiri",
   },
 };

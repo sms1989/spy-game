@@ -1,14 +1,17 @@
 import { Data } from "@/data";
-import Store, { StoreMode } from "@/helpers/store";
+import Store from "@/helpers/store";
 import DefaultLayout from "@/layouts/default";
 import { useEffect, useState } from "react";
 import { Card, CardBody, CardFooter } from '@nextui-org/card'
 import { Button } from "@nextui-org/button";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { initData } from ".";
 
-const store = new Store(StoreMode.LOCAL);
 export default function TimerPage() {
-  const { expiredAt: expiredAtString } = store.get<Data>("data", { currentPlayer: 0, expiredAt: new Date(), players: 0, spiesLocation: [], timer: 0, word: { hint: [], word: "" }, hasHint: true }) as Data;
+  if (!Store.local.data) {
+    return <Navigate to="/" />;
+  }
+  const { expiredAt: expiredAtString } = Store.local.data || initData as Data;
   const expiredAt = new Date(expiredAtString);
   const [time, setTime] = useState<number>(Math.floor((expiredAt.getTime() - Date.now()) / 1000));
 
@@ -31,7 +34,7 @@ export default function TimerPage() {
 
   return (
     <DefaultLayout>
-      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 w-full">
         <Card>
           <CardBody className="p-10">
             {time > 0 ? <span dir="ltr" className={["text-3xl", isMinus ? "text-red-500" : ""].join(" ")}>
