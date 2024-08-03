@@ -7,6 +7,7 @@ import { Select, SelectItem } from "@nextui-org/select";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import words from '@/words.json'
+import { Checkbox } from '@nextui-org/checkbox'
 
 
 const categories = [{
@@ -26,7 +27,7 @@ const categories = [{
 }];
 
 const times = [
-  3, 5, 10, 15
+  1, 5, 10, 15
 ]
 
 // todo: use react hook form
@@ -34,8 +35,9 @@ const times = [
 export default function IndexPage() {
   const navigate = useNavigate();
   const [players, setPlayers] = useState("8");
+  const [hasHint, setHasHint] = useState(true);
   const [spies, setSpies] = useState("1");
-  const [timer, setTimer] = useState("3");
+  const [timer, setTimer] = useState("1");
   const [category, setCategory] = useState<string>("all");
 
 
@@ -56,7 +58,8 @@ export default function IndexPage() {
       spiesLocation,
       timer,
       word,
-      currentPlayer: 0
+      currentPlayer: 0,
+      hasHint
     });
     navigate("/game")
   }
@@ -65,8 +68,8 @@ export default function IndexPage() {
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
         <h1 className="text-4xl font-bold text-center">بازی جاسوس</h1>
-        <Input type="number" value={players} min="2" onChange={({ target }) => setPlayers(target.value)} label="تعداد بازیکنان" placeholder="تعداد بازیکنان" />
-        <Input type="number" value={spies} min="1" max={+players - 1} onChange={({ target }) => setSpies(target.value)} label="تعداد جاسوس" placeholder="تعداد جاسوس" />
+        <Input type="number" value={players} min="2" onChange={({ target }) => setPlayers(+target.value > 3 ? target.value : "3")} label="تعداد بازیکنان" placeholder="تعداد بازیکنان" />
+        <Input type="number" value={spies} min="1" max={+players - 1} onChange={({ target }) => setSpies(+target.value < +players - 1 ? +target.value > 0 ? target.value : "1" : (+players - 1).toString())} label="تعداد جاسوس" placeholder="تعداد جاسوس" />
         <Select label="دسته بندی" selectedKeys={[category]} onChange={(event) => {
           setCategory(event.target.value);
         }}>
@@ -85,6 +88,8 @@ export default function IndexPage() {
             </SelectItem>
           ))}
         </Select>
+        <Checkbox defaultSelected checked={hasHint} onValueChange={(hasHint) => setHasHint(hasHint)}>فعال بودن راهنمایی</Checkbox>
+
         <Button onClick={startGame}>
           شروع بازی
         </Button>

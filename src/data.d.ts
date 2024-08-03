@@ -5,6 +5,7 @@ export interface Data {
   expiredAt: Date;
   word: Word;
   currentPlayer: number;
+  hasHint: boolean;
 }
 
 export interface Word {

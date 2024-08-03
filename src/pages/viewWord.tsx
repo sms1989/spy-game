@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 const store = new Store(StoreMode.LOCAL);
 export default function viewWordPage() {
   const navigate = useNavigate();
-  const data = store.get<Data>("data", { currentPlayer: 0, expiredAt: new Date(), players: 0, spiesLocation: [], timer: 0, word: { hint: [], word: "" } });
-  const { currentPlayer, players, spiesLocation, timer, word } = data as Data;
+  const data = store.get<Data>("data", { currentPlayer: 0, expiredAt: new Date(), players: 0, spiesLocation: [], timer: 0, word: { hint: [], word: "" }, hasHint: true });
+  const { currentPlayer, players, spiesLocation, timer, word, hasHint } = data as Data;
   const [state, setState] = useState<"show" | "next">("next");
 
   const handleNext = () => {
@@ -46,7 +46,7 @@ export default function viewWordPage() {
       const hint = word.hint.sort(() => Math.random() - 0.5)[0];
       return <>
         <p className="text-2xl text-center font-bold text-red-500">شما جاسوس هستید</p>
-        <p className="text-center text-lg text-gray-500">راهنمایی: {hint}</p>
+        {hasHint && <p className="text-center text-lg text-gray-500">راهنمایی: {hint}</p>}
       </>
     }
     return <p className="text-2xl text-center font-bold text-green-700">{word.word}</p>

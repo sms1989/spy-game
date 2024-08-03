@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint -c .eslintrc.json ./src/**/**/*.{ts,tsx} --fix",
+    "test": "vitest --run --pool=forks",
     "preview": "vite preview",
     "prepare": "husky",
     "commit": "cz"
@@ -34,9 +35,15 @@
     "react-router-dom": "6.23.0",
     "tailwind-variants": "0.1.20",
     "tailwindcss": "3.4.3",
-    "vazirmatn": "^33.0.3"
+    "vazirmatn": "^33.0.3",
+    "vitest": "^2.0.5"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/cz-commitlint": "^19.2.0",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.4.8",
+    "@testing-library/react": "^16.0.0",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
@@ -54,10 +61,16 @@
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-unused-imports": "^3.2.0",
+    "jsdom": "^24.1.1",
     "postcss": "^8.4.38",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vite-plugin-pwa": "^0.20.1",
     "vite-tsconfig-paths": "^4.3.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
   }
 }

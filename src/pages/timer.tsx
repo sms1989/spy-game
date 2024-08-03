@@ -1,14 +1,14 @@
 import { Data } from "@/data";
 import Store, { StoreMode } from "@/helpers/store";
 import DefaultLayout from "@/layouts/default";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card, CardBody, CardFooter } from '@nextui-org/card'
 import { Button } from "@nextui-org/button";
 import { Link } from "react-router-dom";
 
 const store = new Store(StoreMode.LOCAL);
 export default function TimerPage() {
-  const { expiredAt: expiredAtString } = store.get<Data>("data", { currentPlayer: 0, expiredAt: new Date(), players: 0, spiesLocation: [], timer: 0, word: { hint: [], word: "" } }) as Data;
+  const { expiredAt: expiredAtString } = store.get<Data>("data", { currentPlayer: 0, expiredAt: new Date(), players: 0, spiesLocation: [], timer: 0, word: { hint: [], word: "" }, hasHint: true }) as Data;
   const expiredAt = new Date(expiredAtString);
   const [time, setTime] = useState<number>(Math.floor((expiredAt.getTime() - Date.now()) / 1000));
 
