@@ -40,7 +40,7 @@ export default defineConfig({
           },
         ],
         display: "standalone",
-        theme_color: "#000000",
+        theme_color: "#1f1f23",
         categories: ["games", "entertainment"],
         description: "بازی دسته جمعی جاسوس",
         lang: "fa",
