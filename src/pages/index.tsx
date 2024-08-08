@@ -97,7 +97,7 @@ export default function IndexPage() {
 
   return (
     <DefaultLayout>
-      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 w-full pt-[400px]">
+      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 w-full">
         <div className="flex gap-2 w-full">
           <SpySelect title="بازیکنان" postfix="نفر" items={playerItems} onChange={value => setPlayers(value)} value={players} />
           <SpySelect title="جاسوس" postfix="نفر" items={spiesItems} onChange={value => setSpies(value)} value={spies} />
@@ -106,8 +106,7 @@ export default function IndexPage() {
           <SpySelect title="دسته بندی" items={categories.map(({ key, label }) => ({ title: label, value: key }))} onChange={value => setCategory(value as Category)} value={category} />
           <SpySelect title="زمان" postfix="دقیقه" items={times.map(time => ({ title: toPersianNumber(time.toString()), value: time.toString() }))} onChange={value => setTimer(value)} value={timer} />
         </div>
-        <Checkbox classNames={{ label: "text-white" }} color="secondary" defaultSelected checked={hasHint} onValueChange={(hasHint) => setHasHint(hasHint)}>راهنمایی فعال باشه</Checkbox>
-
+        <Checkbox classNames={{ label: "text-white" }} color="warning" defaultSelected checked={hasHint} onValueChange={(hasHint) => setHasHint(hasHint)}>راهنمایی فعال باشه</Checkbox>
         <Button className="cta" onClick={startGame}>
           شروع کن
         </Button>

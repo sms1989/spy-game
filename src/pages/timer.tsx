@@ -2,10 +2,11 @@ import { Data } from "@/data";
 import Store from "@/helpers/store";
 import DefaultLayout from "@/layouts/default";
 import { useEffect, useState } from "react";
-import { Card, CardBody, CardFooter } from '@nextui-org/card'
 import { Button } from "@nextui-org/button";
 import { Link, Navigate } from "react-router-dom";
 import { initData } from ".";
+import Card from "@/components/Card";
+import { toPersianNumber } from "@/helpers/tools";
 
 export default function TimerPage() {
   if (!Store.local.data) {
@@ -28,26 +29,23 @@ export default function TimerPage() {
     return () => clearInterval(interval);
   }, [expiredAt]);
 
-  const isMinus = time < 0;
+  const lowerThan30Seconds = time < 30;
   const minutes = Math.abs(Math.floor(time / 60));
   const seconds = Math.abs(time % 60);
 
   return (
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 w-full">
-        <Card>
-          <CardBody className="p-10">
-            {time > 0 ? <span dir="ltr" className={["text-3xl", isMinus ? "text-red-500" : ""].join(" ")}>
-              {isMinus ? "-" : ""}
-              {minutes.toString().padStart(2, "0")}:{seconds.toString().padStart(2, "0")}
-            </span> : <span className="text-3xl text-red-500">
-              پایان
-            </span>}
-          </CardBody>
-          <CardFooter className="justify-center">
-            <Button as={Link} to="/">شروع از ابتدا</Button>
-          </CardFooter>
+        <Card className="text-white font-black">
+          {time > 0 ? <span dir="ltr" className={["text-3xl transition-all", lowerThan30Seconds ? "text-warning-500" : ""].join(" ")}>
+            {time < 0 ? "-" : ""}
+            {toPersianNumber(`${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`)}
+          </span> : <span className="text-3xl text-warning-500">
+            تموم شد!
+          </span>}
         </Card>
+        <Button className="cta" as={Link} to="/">شروع از اول</Button>
+
       </section>
     </DefaultLayout>
   );

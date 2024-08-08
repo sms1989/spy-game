@@ -1,8 +1,8 @@
+import Card from "@/components/Card";
 import { Data } from "@/data";
 import Store from "@/helpers/store";
 import DefaultLayout from "@/layouts/default";
 import { Button } from "@nextui-org/button";
-import { Card, CardBody, CardFooter } from '@nextui-org/card';
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 
@@ -13,7 +13,7 @@ export default function viewWordPage() {
   const navigate = useNavigate();
   const data = Store.local.data as Data;
   const { currentPlayer, players, spiesLocation, timer, word, hasHint } = data;
-  const [state, setState] = useState<"show" | "next">("next");
+  const [state, setState] = useState<"show" | "next">("show");
 
   const handleNext = () => {
     if (state === "next") {
@@ -37,35 +37,31 @@ export default function viewWordPage() {
 
   const renderContent = () => {
     if (state === "next" && currentPlayer === 0) {
-      return <p className="text-xl w-full text-center text-green-700 font-bold">گوشی را به نفر اول بدهید</p>
+      return <p className="text-xl w-full text-center text-white font-bold">گوشی را به نفر اول بدهید</p>
     }
     if (state === "next") {
-      return <p className="text-xl w-full text-center text-red-500 font-bold">گوشی را به نفر بعدی بدهید</p>
+      return <p className="text-xl w-full text-center text-warning-500 font-bold">گوشی را به نفر بعدی بدهید</p>
 
     }
     if (spiesLocation.includes(currentPlayer)) {
       const hint = word.hint.sort(() => Math.random() - 0.5)[0];
       return <>
-        <p className="text-2xl text-center font-bold text-red-500">شما جاسوس هستید</p>
+        <p className="text-2xl text-center font-bold text-warning-500">👀 جاسوس شدی! 👀</p>
         {hasHint && <p className="text-center text-lg text-gray-500">راهنمایی: {hint}</p>}
       </>
     }
-    return <p className="text-2xl text-center font-bold text-green-700">{word.word}</p>
+    return <p className="text-2xl text-center font-bold text-white">{word.word}</p>
   }
 
   return (
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 w-full">
         <Card>
-          <CardBody className="min-h-20 p-10 items-center w-[80vw]">
-            {renderContent()}
-          </CardBody>
-          <CardFooter className="justify-center">
-            <Button onClick={handleNext}>
-              {(currentPlayer === 0 && state === "next") ? "شروع" : ((currentPlayer === players - 1) && state === "next") ? "شروع بازی" : "بعدی"}
-            </Button>
-          </CardFooter>
+          {renderContent()}
         </Card>
+        <Button className="cta" onClick={handleNext}>
+          {state === "next" ? "بذار ببینم چیه" : "ممنون دیدم"}
+        </Button>
       </section>
     </DefaultLayout>
   );
