@@ -16,7 +16,7 @@ export default function DefaultLayout({
       <main className="container mx-auto max-w-sm px-6 flex-grow flex items-center z-10 pt-[400px]">
         {children}
       </main>
-      <footer className="w-full flex max-w-sm py-3 h-20 justify-between mx-auto items-center">
+      <footer className="w-full flex max-w-sm py-3 px-3 h-20 justify-between mx-auto items-center">
         <Link isExternal href={siteConfig.links.github}>
           <GithubIcon className="text-default-500" />
         </Link>
