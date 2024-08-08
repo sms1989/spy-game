@@ -2,8 +2,6 @@
 import Store from "@/helpers/store";
 import DefaultLayout from "@/layouts/default";
 import { Button } from "@nextui-org/button";
-import { Input } from "@nextui-org/input";
-import { Select, SelectItem } from "@nextui-org/select";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import words from '@/words.json'
