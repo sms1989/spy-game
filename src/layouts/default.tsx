@@ -11,7 +11,7 @@ export default function DefaultLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative flex flex-col h-svh">
+    <div className="relative flex flex-col min-h-svh">
       <img src="/background.jpg" className="absolute left-1/2 -translate-x-1/2 object-cover max-w-sm w-full z-0" />
       <main className="container mx-auto max-w-sm px-6 flex-grow flex items-center z-10 pt-[400px]">
         {children}
