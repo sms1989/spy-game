@@ -80,7 +80,7 @@ export default defineConfig({
         launch_handler: {
           client_mode: "auto",
         },
-        display: "standalone",
+        display: "fullscreen",
         theme_color: "#1f1f23",
         categories: ["games", "entertainment"],
         description: "بازی دسته جمعی جاسوس",
