@@ -1,0 +1,23 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "ir.baaziar.spy.twa",
+      "sha256_cert_fingerprints": [
+        "EB:21:3D:80:EB:AE:2B:64:B9:95:0B:A0:26:4F:E3:AF:B5:CF:0A:A6:D5:52:AA:E5:B5:C9:17:D4:44:8A:2D:6A"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "check_validation"
+    ],
+    "target": {
+      "namespace": "cafebazaar_twa",
+      "package_name": "ir.baaziar.spy.twa"
+    }
+  }
+]
