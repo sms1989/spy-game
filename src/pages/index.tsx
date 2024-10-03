@@ -32,7 +32,7 @@ const categories = [{
   key: Category;
 }[];
 
-const playerItems = new Array(10).fill(0).map((_, i) => ({
+const playerItems = new Array(30).fill(0).map((_, i) => ({
   title: toPersianNumber(i + 3),
   value: (i + 3).toString()
 }));
